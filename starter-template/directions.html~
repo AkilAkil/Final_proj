@@ -78,7 +78,7 @@ function drop5() {
   function calcRoute() {
     var start = document.getElementById("srt").value;
     var end = document.getElementById("des").value;
-    
+    alert(start);
     var request = {
         origin:start,
         destination:end,

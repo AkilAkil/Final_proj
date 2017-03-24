@@ -81,13 +81,13 @@ while 1:
 		    cur.execute("select counter from log where veh_num='%s'" % (num_pl))
 		    r=cur.fetchall()
 		    for row in r:
-				cn_ob=row[0]
-            cn_ob=int(cn_ob)+1
+			cn_ob=row[0]
+                    cn_ob=int(cn_ob)+1
 		    l_cur_obj=datetime.strftime(l_cur_obj,"%Y-%m-%d %H-%M")
 		    dt_currt=time.strftime("%Y-%m-%d %H %M")
 		    if dt_currt < l_cur_obj:
-				cur.execute("INSERT INTO log(veh_num,date_nw,time_nw,counter) VALUES (%s,%s,%s,%s)",(fname,dt,tm,cn_ob))
-                db.commit()
+			cur.execute("INSERT INTO log(veh_num,date_nw,time_nw,counter) VALUES (%s,%s,%s,%s)",(fname,dt,tm,cn_ob))
+               	        db.commit()
 		        cur.execute("select email,user_name from numplate where veh_num='%s'" % (num_pl))
 		        re=cur.fetchall()
 			for row in re:

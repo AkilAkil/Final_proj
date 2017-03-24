@@ -15,8 +15,9 @@ num_pl=0
 #date_time_now=str(datetime.datetime.now())
 dt = time.strftime("%Y-%m-%d")
 tm = time.strftime("%H-%M")
-print dt
-print tm
+#print dt
+#print tm
+print "Checking vehicle's Toll Pass......."  
 while 1:
     ret, img = cap.read()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -45,10 +46,10 @@ while 1:
                 if row==None or not row:
                     cur.execute("select date from numplate where veh_num='%s'" % (num_pl))
                     st=cur.fetchone()
-		    print st
+		    #print st
 		    st=str(st)
                     da_obj=datetime.strptime(st,"('%Y-%m-%d',)")
-		    print da_obj
+		    #print da_obj
 		    date_cur=time.strftime("('%Y-%m-%d',)")
 		    date_cur=datetime.strptime(date_cur,"('%Y-%m-%d',)")
                     if da_obj == date_cur:
@@ -66,6 +67,10 @@ while 1:
 		    	for row in rc:
 			    cn_ob=row[0]
 			mail.sen(r,fname,nam,cn_ob)
+			print "Vehicle's First Entry"
+		    else:
+			print "Toll Pass Expired" 
+			time.sleep(10)
                     time.sleep(10)
 		else:
 		    cn=1
@@ -81,13 +86,13 @@ while 1:
 		    cur.execute("select counter from log where veh_num='%s'" % (num_pl))
 		    r=cur.fetchall()
 		    for row in r:
-				cn_ob=row[0]
-            cn_ob=int(cn_ob)+1
+			cn_ob=row[0]
+                    cn_ob=int(cn_ob)+1
 		    l_cur_obj=datetime.strftime(l_cur_obj,"%Y-%m-%d %H-%M")
 		    dt_currt=time.strftime("%Y-%m-%d %H %M")
 		    if dt_currt < l_cur_obj:
-				cur.execute("INSERT INTO log(veh_num,date_nw,time_nw,counter) VALUES (%s,%s,%s,%s)",(fname,dt,tm,cn_ob))
-                db.commit()
+			cur.execute("INSERT INTO log(veh_num,date_nw,time_nw,counter) VALUES (%s,%s,%s,%s)",(fname,dt,tm,cn_ob))
+                        db.commit()
 		        cur.execute("select email,user_name from numplate where veh_num='%s'" % (num_pl))
 		        re=cur.fetchall()
 			for row in re:
@@ -98,16 +103,14 @@ while 1:
 		    	for row in rc:
 			    cn_ob=row[0]
 			mail.sen(r,fname,nam,cn_ob)
-			print "Vehicle passed more than one time"
+			print "Vehicle passed %d times" %(cn_ob)
 		    else:
-			print "One day quota finished" 
-		    time.sleep(15)
-		    
-            else:
-                #print "Does not match"
+			print "Toll Pass Expired" 
+			time.sleep(10)
+		    time.sleep(10)
     except:
-          print "error"
-          time.sleep(5)
+        print "error"
+        time.sleep(5)
     cv2.imshow('img',img)
     k = cv2.waitKey(30) & 0xff
     if k == 27:
