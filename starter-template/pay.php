@@ -52,10 +52,15 @@ session_start();
         {
         echo '<li class="right hide-on-med-and-down"><a href="sign.html">SignUp/SignIn</a></li>';
         }
+        
         ?>
 
                         <?php 
         echo $_SESSION["name"];
+
+
+
+
       ?>
                         </li>
                 </ul>
@@ -66,6 +71,15 @@ session_start();
         </nav>
 
 
+<?php
+$con=mysql_connect("localhost","root","asdf1234")||die("error");
+mysql_select_db("onlinetoll")||die("error");
+$ret = mysql_query("select email from user where name='".$_SESSION["name"]."'");
+while($row = mysql_fetch_assoc($ret)) {
+    $r1= $row["email"];
+}
+?>
+
 
 
 
@@ -73,11 +87,13 @@ session_start();
             <form class="col s12" method="POST" action="paymnt.php"><br><br><br>
                 <h1 class="header center orange-text">Payment Info</h1>
                 <div class="input-field col s3 offset-s3">
-                    <input placeholder="First Name" name="first_name" type="text" class="validate">
-                    <input placeholder="E-mail ID" name="email" type="text" class="validate">
+                    <input placeholder="First Name" name="first_name" type="text" class="validate" value=<?php echo $_SESSION["name"] ?>>
+                    <input placeholder="E-mail ID" name="email" type="text" class="validate" value=<?php echo $r1 ?>>
                     <input placeholder="Vehicle number" name="vehno" type="text" class="validate">
                     <input type="date" placeholder="Select the date" class="calendar" name="dt">
                 </div>
+                
+
                 <!--  <div class="input-field col s9 offset-s1 ">
     <div class="input-fiels col s3 offset-s3">               
  <!-- <select class="browser-default">

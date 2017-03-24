@@ -127,36 +127,7 @@ session_start();
                             <li class="white-text"><b>Gopi</b> </li>
                             <li class="white-text"><i class="material-icons prefix">phone</i>7845286448</li>
           </ul>
-        </div> <footer class="page-footer orange">
-    <div class="container">
-      <div class="row">
-        <div class="col s6">
-                        <h5 class="white-text">About Us</h5>
-                        <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job</p>
-
-
-                    </div>
-
-        <div class="col l3 s12">
-          <h5 class="white-text" class="left-align">Connect Us</h5>
-          <ul>
-            <li><a class="white-text" href="https://www.facebook.com/onlinetoll"><i class="material-icons prefix">facebook</i>Facebook</a></li>
-            <li><a class="white-text" href="https://www.gmail.com"><i class="material-icons prefix">email</i>onlinetoll24@gmail.com</a></li>
-            <li><a class="white-text" ><i class="material-icons prefix">chat</i>9444423926</a></li>
-            
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Contact</h5>
-          <ul>
-                            <li class="white-text"><b>Akilan </b></li>
-                            <li class="white-text"><i class="material-icons prefix">phone</i>9698074174</li>
-                            <li class="white-text"><b>Dharaneesh</b> </li>
-                            <li class="white-text"><i class="material-icons prefix">phone</i>7598455773</li>
-                            <li class="white-text"><b>Gopi</b> </li>
-                            <li class="white-text"><i class="material-icons prefix">phone</i>7845286448</li>
-          </ul>
-        </div>
+        </div> 
       </div>
 
 
