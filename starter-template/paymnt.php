@@ -64,14 +64,21 @@ session_start();
 <?php
 mysql_connect("localhost","root","asdf1234")||die("error");
 mysql_select_db("onlinetoll")||die("error");
-$na=$_POST["first_name"];
-$id=$_POST["email"];
-$veh =$_POST["vehno"];
-$date=$_POST["dt"];
-$tollnm=$_POST["toll"];
-$vehty=$_POST["vehtyp"];
-$amt=$_POST["amt1"];
-mysql_query("insert into numplate values('".$veh."','".$vehty."','".$na."','".$id."','".$tollnm."','".$date."','".$amt."')")||die("There is an error in creating the account");
+@$na=$_POST["first_name"];
+@$id=$_POST["email"];
+@$veh =$_POST["vehno"];
+@$date=$_POST["dt"];
+@$from_pl=$_POST["from_pl"];
+@$to_pl=$_POST["to_pl"];
+@$ent=$_POST["g1"];
+$tl='';
+foreach($_POST['t1'] as $te)
+{
+    $tl=$tl.$te.',';
+}
+@$vehty=$_POST["vehtyp"];
+@$amt=$_POST["amt1"];
+mysql_query("insert into numplate values('".$veh."','".$vehty."','".$na."','".$id."','".$date."','".$from_pl."','".$to_pl."','".$tl."','".$amt."','".$ent."')")||die("There is an error in creating the account");
 ?>
   <div class="row"></div>
     <div class="row"></div>
