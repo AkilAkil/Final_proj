@@ -75,38 +75,46 @@ while 1:
 		else:
 		    cn=1
 		    cn=int(cn)
-		    cur.execute("select date_nw,time_nw from log where veh_num='%s' AND counter='%s'" % (num_pl,cn))
-		    r=cur.fetchall()
-		    for row in r:
-		        l_dt=row[0]
-		        l_tm=row[1]
-		    l_cur=l_dt+' '+l_tm
-		    l_cur_obj=datetime.strptime(l_cur,"%Y-%m-%d %H-%M")
-		    l_cur_obj+=timedelta(days=1)
-		    cur.execute("select counter from log where veh_num='%s'" % (num_pl))
-		    r=cur.fetchall()
-		    for row in r:
-			cn_ob=row[0]
-                    cn_ob=int(cn_ob)+1
-		    l_cur_obj=datetime.strftime(l_cur_obj,"%Y-%m-%d %H-%M")
-		    dt_currt=time.strftime("%Y-%m-%d %H %M")
-		    if dt_currt < l_cur_obj:
-			cur.execute("INSERT INTO log(veh_num,date_nw,time_nw,counter) VALUES (%s,%s,%s,%s)",(fname,dt,tm,cn_ob))
-                        db.commit()
-		        cur.execute("select email,user_name from numplate where veh_num='%s'" % (num_pl))
-		        re=cur.fetchall()
-			for row in re:
-			    r=row[0]
-			    nam=row[1]
-			cur.execute("select counter from log where veh_num='%s'" % (num_pl))
-		    	rc=cur.fetchall()
-		    	for row in rc:
-			    cn_ob=row[0]
-			mail.sen(r,fname,nam,cn_ob)
-			print "Vehicle passed %d times" %(cn_ob)
+		    cur.execute("select entry from numplate where veh_num='%s'" % (num_pl))
+		    ent=cur.fetchall()
+		    for row in ent:
+			e=row[0]
+		    #print e
+		    if e:
+			    cur.execute("select date_nw,time_nw from log where veh_num='%s' AND counter='%s'" % (num_pl,cn))
+			    r=cur.fetchall()
+			    for row in r:
+				l_dt=row[0]
+				l_tm=row[1]
+			    l_cur=l_dt+' '+l_tm
+			    l_cur_obj=datetime.strptime(l_cur,"%Y-%m-%d %H-%M")
+			    l_cur_obj+=timedelta(days=1)
+			    cur.execute("select counter from log where veh_num='%s'" % (num_pl))
+			    r=cur.fetchall()
+			    for row in r:
+				cn_ob=row[0]
+		            cn_ob=int(cn_ob)+1
+			    l_cur_obj=datetime.strftime(l_cur_obj,"%Y-%m-%d %H-%M")
+			    dt_currt=time.strftime("%Y-%m-%d %H %M")
+			    if dt_currt < l_cur_obj:
+				cur.execute("INSERT INTO log(veh_num,date_nw,time_nw,counter) VALUES (%s,%s,%s,%s)",(fname,dt,tm,cn_ob))
+		                db.commit()
+				cur.execute("select email,user_name from numplate where veh_num='%s'" % (num_pl))
+				re=cur.fetchall()
+				for row in re:
+				    r=row[0]
+				    nam=row[1]
+				cur.execute("select counter from log where veh_num='%s'" % (num_pl))
+			    	rc=cur.fetchall()
+			    	for row in rc:
+				    cn_ob=row[0]
+				mail.sen(r,fname,nam,cn_ob)
+				print "Vehicle passed %d times" %(cn_ob)
+			    else:
+				print "Toll Pass Expired" 
+				time.sleep(10)
 		    else:
-			print "Toll Pass Expired" 
-			time.sleep(10)
+			print "Toll Pass Expired"
 		    time.sleep(10)
     except:
         print "error"
